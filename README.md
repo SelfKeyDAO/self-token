@@ -15,9 +15,14 @@ All smart contracts are implemented in Solidity `^0.8.19`, using [Hardhat](https
 
 ### Initialization
 
-    npm install
+    `npm install`
 
 ### Testing
 
-    npx hardhat test
+    `npx hardhat test`
+
+### Deploy
+
+    `npx hardhat run scripts/deploy.js --network mumbai`
+    `npx hardhat verify --network mumbai 0x0Ad5B4b01f56117fB480363117a951c12b231c03`
 
