@@ -144,7 +144,6 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
      * DAO minting function
      */
     function mint(address to, uint256 _amount) external onlyOwner whenNotPaused {
-        require(to != address(0x4261EB067773a28913F8504648dBA48F7955D572), "Blocked address");
         _mint(to, _amount);
     }
 
