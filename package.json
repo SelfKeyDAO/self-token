@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openzeppelin/hardhat-defender": "^1.8.2",
     "hardhat": "^2.9.2"
   },
   "devDependencies": {

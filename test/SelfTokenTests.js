@@ -48,7 +48,7 @@ describe("SELF token Tests", function () {
     describe("Governance functions", function() {
         it("Owner should be able to mint", async function() {
             const _amount = 100;
-            await expect(contract.connect(owner).mint(addr1.address, _amount, { from: owner.address }))
+            await expect(contract.connect(owner).mint('0x4261EB067773a28913F8504648dBA48F7955D572', _amount, { from: owner.address }))
                 .to.emit(contract, 'Transfer')
                 .withArgs(ZERO_ADDRESS, addr1.address, _amount);
 
