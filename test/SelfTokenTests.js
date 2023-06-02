@@ -25,7 +25,7 @@ describe("SELF token Tests", function () {
         contract = await upgrades.deployProxy(selfTokenContractFactory, []);
 		await contract.deployed();
 
-        await contract.connect(owner).setAuthorizationContractAddress(authContract.address, { from: owner.address });
+        await contract.connect(owner).setAuthorizationContract(authContract.address, { from: owner.address });
 
     });
 

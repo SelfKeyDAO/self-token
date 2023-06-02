@@ -46,7 +46,7 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
         __Ownable_init();
     }
 
-    function setAuthorizationContractAddress(address _authorizationContractAddress) public onlyOwner {
+    function setAuthorizationContract(address _authorizationContractAddress) public onlyOwner {
         require(_authorizationContractAddress != address(0), "Invalid authorization contract address");
         authorizationContractAddress = _authorizationContractAddress;
         emit AuthorizationContractChanged(_authorizationContractAddress);
