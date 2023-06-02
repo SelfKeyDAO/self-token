@@ -133,7 +133,7 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
     /**
      * Self minting function
      */
-    function self_mint(address _to, uint256 _amount, uint _timestamp, address _signer, bytes memory signature) external whenNotPaused {
+    function selfMint(address _to, uint256 _amount, uint _timestamp, address _signer, bytes memory signature) external whenNotPaused {
         require(authorizationContractAddress != address(0), "No authorization contract address set");
         ISelfkeyIdAuthorization authorizationContract = ISelfkeyIdAuthorization(authorizationContractAddress);
         authorizationContract.authorize(address(this), _to, _amount, 'mint:self', _timestamp, _signer, signature);
