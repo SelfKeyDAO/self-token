@@ -21,9 +21,9 @@ describe("SELF token Tests", function () {
         let authorizationContractFactory = await ethers.getContractFactory("SelfkeyIdAuthorization");
         authContract = await authorizationContractFactory.deploy(signer.address);
 
-		let selfTokenContractFactory = await ethers.getContractFactory("SelfToken");
+        let selfTokenContractFactory = await ethers.getContractFactory("SelfToken");
         contract = await upgrades.deployProxy(selfTokenContractFactory, []);
-		await contract.deployed();
+        await contract.deployed();
 
         await contract.connect(owner).setAuthorizationContract(authContract.address, { from: owner.address });
 
@@ -38,7 +38,7 @@ describe("SELF token Tests", function () {
     });
 
     describe("Governance functions", function() {
-        it("Owner should be able to mint", async function() {
+        it("Owner address should be able to mint", async function() {
             const _amount = 100;
             await expect(contract.connect(owner).mint(addr1.address, _amount, { from: owner.address }))
                 .to.emit(contract, 'Transfer')
@@ -55,7 +55,7 @@ describe("SELF token Tests", function () {
             expect(await contract.balanceOf(addr1.address)).to.equal(0);
         });
 
-        it("Owner can pause", async function() {
+        it("Owner address can pause", async function() {
             expect(await contract.paused()).to.equal(false);
 
             await expect(contract.connect(owner).pause({ from: owner.address }))
@@ -73,6 +73,29 @@ describe("SELF token Tests", function () {
             expect(await contract.paused()).to.equal(true);
 
             const _amount = 100;
+            await expect(contract.connect(owner).mint(addr1.address, _amount, { from: owner.address }))
+                .to.be.revertedWith('Pausable: paused');
+        });
+
+        it("When paused transfers are allowed", async function() {
+            const _amount = 100;
+
+            expect(await contract.paused()).to.equal(false);
+
+            await expect(contract.connect(owner).mint(addr1.address, _amount, { from: owner.address }))
+                .to.emit(contract, 'Transfer')
+                .withArgs(ZERO_ADDRESS, addr1.address, _amount);
+
+            await expect(contract.connect(owner).pause({ from: owner.address }))
+                .to.emit(contract, 'Paused')
+
+            expect(await contract.paused()).to.equal(true);
+
+            await expect(contract.connect(addr1).transfer(addr2.address, _amount, { from: addr1.address }))
+                .to.emit(contract, 'Transfer');
+
+            expect(await contract.balanceOf(addr2.address)).to.equal(_amount);
+
             await expect(contract.connect(owner).mint(addr1.address, _amount, { from: owner.address }))
                 .to.be.revertedWith('Pausable: paused');
         });

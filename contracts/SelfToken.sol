@@ -4,7 +4,6 @@ pragma solidity 0.8.19;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "./SafeOwnUpgradable.sol";
 import './ISelfkeyIdAuthorization.sol';
 
 contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
