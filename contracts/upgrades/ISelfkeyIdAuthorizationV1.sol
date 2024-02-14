@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: proprietary
 pragma solidity >=0.8.0;
 
-interface ISelfkeyIdAuthorization {
+interface ISelfkeyIdAuthorizationV1 {
 
     function authorize(address _from, address _to, uint256 _amount, string memory _scope, uint _timestamp, address _signer, bytes memory _signature) external;
 

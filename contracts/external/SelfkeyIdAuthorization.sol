@@ -22,23 +22,23 @@ contract SelfkeyIdAuthorization is SafeOwn {
         emit SignerChanged(_signer);
     }
 
-    function authorize(address _from, address _to, uint256 _amount, string memory _scope, uint _timestamp, address _signer, bytes memory _signature) external {
+    function authorize(address _from, address _to, uint256 _amount, string memory _scope, bytes32 _param, uint _timestamp, address _signer, bytes memory _signature) external {
         uint timeLimit = block.timestamp - 4 hours;
         require(_timestamp > timeLimit, "Invalid timestamp");
         require(_from == msg.sender, "Invalid caller");
         require(_to == tx.origin, "Invalid subject");
         require(_signer == authorizedSigner, "Invalid signer");
-        require(verify(_from, _to, _amount, _scope, _timestamp, _signer, _signature), "Verification failed");
+        require(verify(_from, _to, _amount, _scope, _param, _timestamp, _signer, _signature), "Verification failed");
 
-        bytes32 messageHash = getMessageHash(_from, _to, _amount, _scope, _timestamp);
+        bytes32 messageHash = getMessageHash(_from, _to, _amount, _scope, _param, _timestamp);
         require(!executed[messageHash], "Payload already used");
 
         executed[messageHash] = true;
         emit PayloadAuthorized(_from, _to, _amount);
     }
 
-    function getMessageHash(address _from, address _to, uint256 _amount, string memory _scope, uint _timestamp) public pure returns (bytes32) {
-        return keccak256(abi.encodePacked(_from, _to, _amount, _scope, _timestamp));
+    function getMessageHash(address _from, address _to, uint256 _amount, string memory _scope, bytes32 _param, uint _timestamp) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(_from, _to, _amount, _scope, _param, _timestamp));
     }
 
     function getEthSignedMessageHash(bytes32 _messageHash) public pure returns (bytes32) {
@@ -49,8 +49,8 @@ contract SelfkeyIdAuthorization is SafeOwn {
         return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", _messageHash));
     }
 
-    function verify(address _from, address _to, uint256 _amount, string memory _scope, uint _timestamp, address _signer, bytes memory signature) public pure returns (bool) {
-        bytes32 messageHash = getMessageHash(_from, _to, _amount, _scope, _timestamp);
+    function verify(address _from, address _to, uint256 _amount, string memory _scope, bytes32 _param, uint _timestamp, address _signer, bytes memory signature) public pure returns (bool) {
+        bytes32 messageHash = getMessageHash(_from, _to, _amount, _scope, _param, _timestamp);
         bytes32 ethSignedMessageHash = getEthSignedMessageHash(messageHash);
         return recoverSigner(ethSignedMessageHash, signature) == _signer;
     }

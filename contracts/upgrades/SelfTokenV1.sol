@@ -4,13 +4,9 @@ pragma solidity 0.8.19;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "./external/ISelfkeyIdAuthorization.sol";
-import "./external/ISelfkeyGovernance.sol";
-import "./external/ISelfkeyMintableRegistry.sol";
-// import console
-import "hardhat/console.sol";
+import './ISelfkeyIdAuthorizationV1.sol';
 
-contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
+contract SelfTokenV1 is Initializable, IERC20, OwnableUpgradeable {
 
     /**
      * @dev Emitted when the pause is triggered by `account`.
@@ -38,15 +34,6 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
     string public constant symbol = "SELF";
     uint8 public constant decimals = 18;
     address public authorizationContractAddress;
-
-    // an array of authorized addresses
-    mapping(address => bool) public authorizedCallers;
-
-    event AuthorizedCallerAdded(address indexed _address);
-    event AuthorizedCallerRemoved(address indexed _address);
-
-    ISelfkeyGovernance public governanceContract;
-    ISelfkeyMintableRegistry public mintableRegistryContract;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -141,40 +128,23 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
         _unpause();
     }
 
+
     /**
      * Self minting function
      */
-    function selfMint(uint256 _amount, bytes32 _param, uint _timestamp, address _signer, bytes memory signature) external whenNotPaused {
-        address _to = msg.sender;
+    function selfMint(address _to, uint256 _amount, uint _timestamp, address _signer, bytes memory signature) external whenNotPaused {
         require(authorizationContractAddress != address(0), "No authorization contract address set");
-        ISelfkeyIdAuthorization authorizationContract = ISelfkeyIdAuthorization(authorizationContractAddress);
-        authorizationContract.authorize(address(this), _to, _amount, 'mint:self', _param, _timestamp, _signer, signature);
-
-        // Check if governance contract is set
-        require(address(governanceContract) != address(0), "No governance contract address set");
-
-        // Check if self minting is unlocked
-        require(governanceContract.isSelfMintingUnlocked(), "Self minting is locked");
-
-        // Check if minting registry is set
-        require(address(mintableRegistryContract) != address(0), "No minting registry contract address set");
-
-        // Check if minting registry has enough balance
-        require(mintableRegistryContract.balanceOf(_to) >= _amount, "Not enough balance in minting registry");
-
-        // Register minting action in the mintable registry
-        mintableRegistryContract.registerMinting(_to, _amount);
-
-        _mint(_to, _amount);
+        ISelfkeyIdAuthorizationV1 authorizationContract = ISelfkeyIdAuthorizationV1(authorizationContractAddress);
+        authorizationContract.authorize(address(this), _to, _amount, 'mint:self', _timestamp, _signer, signature);
+        _mint(msg.sender, _amount);
     }
 
     /**
      * DAO minting function
      */
-    function mint(address to, uint256 _amount) external onlyAuthorizedCallerOrOwner whenNotPaused {
+    function mint(address to, uint256 _amount) external onlyOwner whenNotPaused {
         _mint(to, _amount);
     }
-
 
     /**
      * @dev Destroys `amount` tokens from the caller.
@@ -483,41 +453,5 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
         address to,
         uint256 amount
     ) internal virtual {}
-
-    function isContract(address _addr) private view returns (bool) {
-        uint256 size;
-        assembly {
-            size := extcodesize(_addr)
-        }
-        return size > 0;
-    }
-
-    modifier onlyAuthorizedCaller() {
-        require(authorizedCallers[msg.sender] && isContract(msg.sender), "Not an authorized caller");
-        _;
-    }
-
-    modifier onlyAuthorizedCallerOrOwner() {
-        require((authorizedCallers[msg.sender] && isContract(msg.sender)) || owner() == msg.sender, "Not an authorized caller or owner");
-        _;
-    }
-
-    function addAuthorizedCaller(address _caller) external onlyOwner {
-        authorizedCallers[_caller] = true;
-        emit AuthorizedCallerAdded(_caller);
-    }
-
-    function removeAuthorizedCaller(address _caller) external onlyOwner {
-        authorizedCallers[_caller] = false;
-        emit AuthorizedCallerRemoved(_caller);
-    }
-
-    function setGovernanceContractAddress(address _newGovernanceContractAddress) public onlyOwner {
-        governanceContract = ISelfkeyGovernance(_newGovernanceContractAddress);
-    }
-
-    function setMintableRegistryContractAddress(address _newMintableRegistryContractAddress) public onlyOwner {
-        mintableRegistryContract = ISelfkeyMintableRegistry(_newMintableRegistryContractAddress);
-    }
 
 }
