@@ -7,8 +7,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./external/ISelfkeyIdAuthorization.sol";
 import "./external/ISelfkeyGovernance.sol";
 import "./external/ISelfkeyMintableRegistry.sol";
-// import console
-import "hardhat/console.sol";
 
 contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
 
@@ -47,6 +45,9 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
 
     ISelfkeyGovernance public governanceContract;
     ISelfkeyMintableRegistry public mintableRegistryContract;
+
+    event governanceContractChanged(address _newGovernanceContractAddress);
+    event mintableRegistryContractChanged(address _newMintableRegistryContractAddress);
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -514,10 +515,12 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
 
     function setGovernanceContractAddress(address _newGovernanceContractAddress) public onlyOwner {
         governanceContract = ISelfkeyGovernance(_newGovernanceContractAddress);
+        emit governanceContractChanged(_newGovernanceContractAddress);
     }
 
     function setMintableRegistryContractAddress(address _newMintableRegistryContractAddress) public onlyOwner {
         mintableRegistryContract = ISelfkeyMintableRegistry(_newMintableRegistryContractAddress);
+        emit mintableRegistryContractChanged(_newMintableRegistryContractAddress);
     }
 
 }
