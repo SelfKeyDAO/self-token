@@ -17,7 +17,7 @@ async function main() {
     console.log("Deployed contract address:", contract.address);
 
     // INFO: verify contract after deployment
-    // npx hardhat verify --network goerli 0xA0c61F041DD1059fCE6a50D2461De63a0D47017C
+    // npx hardhat verify --network goerli 0x6202A93c967F7F9dD5D4AE6de0ebA1fE4F44a39B
 }
 
 main()
