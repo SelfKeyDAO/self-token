@@ -2,7 +2,7 @@
 const { defender } = require('hardhat');
 
 async function main() {
-  const proxyAddress = '0x4bf6902f681E679E436b9bb2addbF330B04050e4';
+  const proxyAddress = '0x308815e8CF2Bbe2804b73B68E90163F3A537D4B3';
 
   const contractV2 = await ethers.getContractFactory("SelfToken");
   console.log("Preparing proposal...");

@@ -1,0 +1,177 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x464cDf8BD673D1711cF14C08CDf49CcB2e9B3A4C",
+    "txHash": "0x6f5f4865c8da8c5e8b6cd05fbe368ff2bb54fd9d81c93ae3963c6f50f8c735ae"
+  },
+  "proxies": [
+    {
+      "address": "0x6202A93c967F7F9dD5D4AE6de0ebA1fE4F44a39B",
+      "txHash": "0x8fa6db44a924d6b7528895a56162b073b65eb0eb1a523874549fd0216832bf6b",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "7bf0112effe7a5b5591dbe7f57c448840d092ed501298700d488f50d0b0c28ca": {
+      "address": "0x3C990d5aF25Fe83b128b27053E9dCfFD90691461",
+      "txHash": "0xe958993a6349e636ab61594b88dc6c8d1ade67dadad7b2c8c12c9f8dffa0bd03",
+      "layout": {
+        "solcVersion": "0.8.19",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:40"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "_paused",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_bool",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:28"
+          },
+          {
+            "label": "_totalSupply",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_uint256",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:29"
+          },
+          {
+            "label": "_balances",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:31"
+          },
+          {
+            "label": "_allowances",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:33"
+          },
+          {
+            "label": "authorizationContractAddress",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_address",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:38"
+          },
+          {
+            "label": "authorizedCallers",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:41"
+          },
+          {
+            "label": "governanceContract",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_contract(ISelfkeyGovernance)4809",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:46"
+          },
+          {
+            "label": "mintableRegistryContract",
+            "offset": 0,
+            "slot": "108",
+            "type": "t_contract(ISelfkeyMintableRegistry)5012",
+            "contract": "SelfToken",
+            "src": "contracts/SelfToken.sol:47"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(ISelfkeyGovernance)4809": {
+            "label": "contract ISelfkeyGovernance",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ISelfkeyMintableRegistry)5012": {
+            "label": "contract ISelfkeyMintableRegistry",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    }
+  }
+}

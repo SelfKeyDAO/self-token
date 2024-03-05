@@ -3,7 +3,7 @@ const { ethers, upgrades } = require('hardhat');
 
 async function main() {
   const proxyAddress = '0x4bf6902f681E679E436b9bb2addbF330B04050e4';
-  const multiSig = '0xEEe838366A062fB6BEb230D0636410813f758295';
+  const multiSig = '0x413eded032C70EeA2917cF34b74Ce9ce01898C73';
 
 
   const contractV2 = await ethers.getContractFactory("SelfToken");

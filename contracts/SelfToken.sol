@@ -197,7 +197,7 @@ contract SelfToken is Initializable, IERC20, OwnableUpgradeable {
      * - the caller must have allowance for ``accounts``'s tokens of at least
      * `amount`.
      */
-    function burnFrom(address account, uint256 amount) external {
+    function burnFrom(address account, uint256 amount) onlyAuthorizedCaller external {
         _spendAllowance(account, msg.sender, amount);
         _burn(account, amount);
     }
