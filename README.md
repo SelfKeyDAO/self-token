@@ -27,6 +27,8 @@ All smart contracts are implemented in Solidity `^0.8.19`, using [Hardhat](https
     `npx hardhat run scripts/deploy.js --network mumbai`
     `npx hardhat verify --network mumbai 0x0Ad5B4b01f56117fB480363117a951c12b231c03`
 
+## Contributing
+Please see the [contributing notes](CONTRIBUTING.md).
 
-
+## Copyright
 Copyright SelfKey DAO Foundation 2024. All rights reserved.
