@@ -1,8 +1,9 @@
 # SELF token
 
+
 ## Overview
 
-ERC20 Token contract with user initiated minting with signed authorization
+ERC20 Token contract with user initiated minting backed by KYC signed authorization checks
 
 ## Development
 
@@ -28,3 +29,4 @@ All smart contracts are implemented in Solidity `^0.8.19`, using [Hardhat](https
 
 
 
+Copyright SelfKey DAO Foundation 2024. All rights reserved.
