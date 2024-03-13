@@ -13,7 +13,7 @@ async function main() {
     console.log("Deployed contract address:", contract.address);
 
     // INFO: verify contract after deployment
-    // npx hardhat verify --network mumbai 0x9A52D47193D8F1E6aF312ba241fb325f2f6A89fF
+    // npx hardhat verify --network polygon 0x9A52D47193D8F1E6aF312ba241fb325f2f6A89fF
 }
 
 main()
